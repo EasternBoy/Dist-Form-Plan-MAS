@@ -1,0 +1,28 @@
+clear
+
+
+load('traj.mat')
+
+dimen = size(traj);
+max_idx = dimen(1);
+Nv = dimen(3);
+
+str = {'-r', '-g', '-b', '-c','-o','->y'};
+%str = {'-bs', '-gd', '-c^', '-mh'}
+
+% for i = 1:N 
+%     plot([init_pos_robo(i,1); opt_sol{i}.x(1:max_idx(i))], ...
+%          [init_pos_robo(i,2); opt_sol{i}.y(1:max_idx(i))], str{i});
+%     hold on;
+% end
+
+for snap = 1:1:max_idx
+    clf(figure(snap)); hold on; box on
+    set(gca, 'position', [0.08 0.08 0.89 0.89], 'FontSize', 18);
+    axis([0 15 0 15])
+    for i = 1:Nv
+        viscircles(traj(snap,:,i), 0.2); hold on
+        plot(traj(1:snap,1,i), traj(1:snap,2,i), 'linewidth',1, 'MarkerSize',10);
+        hold on;
+    end    
+end
